@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Bambi Proxy</title>
+</head>
+<body>
+    <button class="settings-button" id="settingsButton" title="Настройки">⚙</button>
+
+    <div class="container">
+        <!-- Клик по заголовку ломает 3D -->
+        <h1 class="title" id="titleLogo" title="Сломать 3D?">BAMBI PROXY</h1>
+
+        <div class="toggle-button" id="toggleButton"></div>
+        <div class="status" id="statusText">ВЫКЛЮЧЕНО</div>
+        <div class="hotkey-hint">Хоткей: Ctrl+Shift+B</div>
+
+        <div class="section-label">ОТКУДА БРАТЬ ПРОКСИ</div>
+        <select id="sourceSelect" class="source-select">
+            <option value="all">⚪ Все сразу</option>
+            <option value="proxyscrape">🔵 ProxyScrape</option>
+            <option value="geonode">🟢 Geonode</option>
+            <option value="proxylist">🟡 Proxy-List</option>
+            <option value="speedx">🟣 TheSpeedX</option>
+        </select>
+
+        <div class="section-label">ПРОТОКОЛ</div>
+        <select id="protocolSelect" class="source-select">
+            <option value="all">🌐 Все протоколы</option>
+            <option value="socks5">🔒 SOCKS5</option>
+            <option value="socks4">🔐 SOCKS4</option>
+            <option value="http">📡 HTTP</option>
+        </select>
+
+        <button id="findButton" class="find-button">ИСКАТЬ ПРОКСИ</button>
+
+        <div class="proxy-info" id="proxyInfo">
+            <span id="proxyInfoText" title="Копировать">Прокси не выбран</span>
+            <button class="icon-button rotate-button" id="rotateButton" title="Сменить">🔀</button>
+            <button class="icon-button ping-button" id="pingButton" title="Пинг">⚡</button>
+            <button class="icon-button speed-button" id="speedButton" title="Скорость">🚀</button>
+        </div>
+
+        <div class="check-result" id="checkResult" style="display:none;"></div>
+        <div class="check-result" id="speedResult" style="display:none;"></div>
+
+        <div class="top-section" id="topSection" style="display:none;">
+            <div class="section-label">ТОП 10 ПРОКСИ</div>
+            <div class="top-list" id="topList"></div>
+        </div>
+
+        <div class="pac-test-section">
+            <div class="section-label">ПРОВЕРКА ПРАВИЛ</div>
+            <div class="pac-input-group">
+                <input type="text" id="pacTestInput" placeholder="youtube.com">
+                <button id="pacTestBtn" class="pac-test-btn">ТЕСТ</button>
+            </div>
+            <div class="pac-test-result" id="pacTestResult" style="display:none;"></div>
+        </div>
+
+        <div id="sitesSection">
+            <div class="section-label">
+                САЙТЫ ДЛЯ ОБХОДА
+                <span class="mode-badge" id="modeBadge">белый</span>
+            </div>
+            <input type="text" id="siteSearch" placeholder="🔍 Поиск..." class="site-search">
+            <input type="text" id="siteInput" placeholder="например: *.youtube.com">
+            <button id="addSiteButton">+ ДОБАВИТЬ</button>
+            <div class="site-list" id="siteList"></div>
+        </div>
+
+        <div class="stats-section" id="statsSection">
+            <div class="stats-title">📊 СТАТИСТИКА</div>
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-num" id="statSearches">0</span><span class="stat-lbl">поисков</span></div>
+                <div class="stat-item"><span class="stat-num" id="statTested">0</span><span class="stat-lbl">проверено</span></div>
+                <div class="stat-item"><span class="stat-num" id="statLive">0</span><span class="stat-lbl">живых</span></div>
+                <div class="stat-item"><span class="stat-num" id="statAvgPing">—</span><span class="stat-lbl">средний</span></div>
+            </div>
+        </div>
+
+        <!-- ИНФОРМАЦИЯ О БЕЗОПАСНОСТИ -->
+        <div class="disclaimer">
+            <div class="warning-title" style="margin-bottom: 0;">🛡️ БЕЗОПАСНОСТЬ</div>
+            
+            <div id="securityInfoContent" class="collapsed">
+                <ul class="warning-list" style="margin-top: 10px;">
+                    <li><b>Внимание:</b> Публичные бесплатные прокси — это лотерея. Они нестабильны.</li>
+                    <li><b>Риск:</b> Владелец прокси-сервера технически может перехватывать ваш незашифрованный трафик. Не входите через них в банки и госуслуги.</li>
+                </ul>
+                
+                <div class="protocol-info">
+                    <h4>🔒 SOCKS5</h4>
+                    <p>Наиболее безопасный и современный протокол. Поддерживает передачу любого трафика (TCP/UDP) и аутентификацию. Идеален для обхода блокировок.</p>
+                    
+                    <h4>🔐 SOCKS4</h4>
+                    <p>Устаревший протокол. Не поддерживает авторизацию и передачу UDP. Может работать некорректно с современными тяжелыми сайтами и видеозвонками.</p>
+                    
+                    <h4>📡 HTTP / HTTPS</h4>
+                    <p>Предназначен исключительно для веб-трафика браузера. Не пропускает трафик других приложений.</p>
+                    
+                    <h4>🛡️ Защита WebRTC</h4>
+                    <p>Функция блокирует запросы WebRTC, чтобы сайты не могли определить ваш реальный IP-адрес в обход прокси-сервера (через P2P-соединения).</p>
+
+                    <h4>🔒 Защита DNS (DoH)</h4>
+                    <p>Шифрует DNS-запросы. Это не позволяет вашему интернет-провайдеру видеть, какие именно сайты вы посещаете.</p>
+                </div>
+            </div>
+            
+            <button id="expandInfoBtn" class="expand-info-btn">РАЗВЕРНУТЬ ПОДРОБНЕЕ ⬇️</button>
+
+            <!-- ВОЗВРАЩЕННАЯ ССЫЛКА -->
+            <a href="https://dzen.ru/id/6801c825e350361bd658166b" target="_blank" class="dev-link" id="devLink">
+                📺 КАНАЛ РАЗРАБОТЧИКА В ДЗЕН
+            </a>
+        </div>
+
+        <!-- ТОТ САМЫЙ ОГРОМНЫЙ ТЕКСТ -->
+        <div class="giant-warning">
+            РАСШИРЕНИЕ НОСИТ<br>РАЗВЛЕКАТЕЛЬНЫЙ<br>ХАРАКТЕР!
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

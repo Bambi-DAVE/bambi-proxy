@@ -1,0 +1,225 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', 'Impact', sans-serif;
+    background: #111;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.page { max-width: 720px; margin: 0 auto; padding: 32px 24px 64px; }
+
+header { margin-bottom: 24px; text-align: center; }
+
+header h1 {
+    margin: 0 0 6px;
+    font-size: 32px;
+    color: #00ffff;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    letter-spacing: 1px;
+    font-family: 'Impact', sans-serif;
+}
+
+.subtitle { margin: 0; color: #ffcc00; font-size: 14px; font-weight: bold; text-shadow: 2px 2px 0 #000; }
+
+.card {
+    background: #222;
+    border: 4px solid #00ffff;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+    box-shadow: 6px 6px 0 #000;
+}
+
+.card h2 { 
+    margin: 0 0 16px; 
+    font-size: 20px; 
+    color: #ff64c8; 
+    text-shadow: 2px 2px 0 #000;
+    font-family: 'Impact', sans-serif;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.row.column { flex-direction: column; align-items: stretch; }
+.row + .row { border-top: 2px dashed #444; }
+.row span { color: #fff; }
+
+.row input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    accent-color: #ff64c8;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.input,
+.select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 3px solid #00ffff;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    margin-top: 6px;
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+.input:focus, .select:focus { border-color: #ff64c8; }
+
+.select { cursor: pointer; }
+
+.hint { font-size: 12px; color: #aaa; margin-top: 4px; }
+
+.ping-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    margin-bottom: 4px;
+}
+.ping-option { cursor: pointer; position: relative; }
+.ping-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.ping-card {
+    padding: 14px 10px;
+    border: 3px solid #444;
+    background: #000;
+    text-align: center;
+    transition: transform 0.1s;
+}
+.ping-option:hover .ping-card { transform: scale(1.05); }
+.ping-option input[type="radio"]:checked + .ping-card {
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 4px 4px 0 #000;
+}
+.ping-emoji { font-size: 24px; line-height: 1; margin-bottom: 6px; }
+.ping-title { font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 2px; font-family: 'Impact', sans-serif; }
+.ping-value { font-size: 12px; color: #aaa; }
+
+.preview {
+    width: 100%;
+    height: 150px;
+    border: 3px solid #ff64c8;
+    position: relative;
+    background: #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+.preview .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); display: none; }
+.preview.show-overlay .overlay { display: block; }
+.preview-toggle {
+    position: relative;
+    z-index: 1;
+    width: 60px; height: 60px;
+    border: 3px solid #000;
+    background: #00ff00;
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Impact', sans-serif;
+}
+.preview-label {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Impact', sans-serif;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    padding: 12px 22px;
+    border: 3px solid #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Impact', sans-serif;
+    transition: transform 0.1s;
+}
+
+.btn-primary { background: #00ffff; color: #000; flex: 1; min-width: 140px; }
+.btn-primary:hover { background: #00cccc; transform: scale(1.02); }
+.btn-primary:active { transform: scale(0.95); }
+
+.btn-secondary { background: #ffcc00; color: #000; flex: 1; min-width: 140px; }
+.btn-secondary:hover { background: #e6b800; transform: scale(1.02); }
+.btn-secondary:active { transform: scale(0.95); }
+
+.btn-danger { background: #ff0000; color: #fff; flex: 1; min-width: 140px; }
+.btn-danger:hover { background: #cc0000; transform: scale(1.02); box-shadow: 0 0 15px #ff0000; }
+.btn-danger:active { transform: scale(0.95); }
+
+.saved-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    background: #00ff00;
+    color: #000;
+    font-weight: bold;
+    font-size: 18px;
+    border: 3px solid #000;
+    font-family: 'Impact', sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 100;
+    box-shadow: 5px 5px 0 #000;
+}
+.saved-toast.show { opacity: 1; transform: translateY(0); }
+
+/* Модальное окно */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-content {
+    background: #222;
+    border: 4px solid #ff0000;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.2s;
+    box-shadow: 8px 8px 0 #000;
+}
+.modal-overlay.show .modal-content { transform: scale(1); }
+.modal-content h3 { margin: 0 0 16px; color: #ff0000; font-size: 24px; font-family: 'Impact', sans-serif; text-shadow: 2px 2px 0 #000; }
+.modal-content p { margin: 0 0 12px; color: #fff; font-size: 16px; line-height: 1.4; }
+.modal-content .small-hint { font-size: 14px; color: #aaa; margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 12px; justify-content: center; }
+.modal-actions .btn-danger, .modal-actions .btn-secondary { flex: 1; margin-top: 0; }

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Bambi Proxy — Настройки</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>BAMBI PROXY — НАСТРОЙКИ</h1>
+            <p class="subtitle">Крути ручки, настраивай кукурузу</p>
+        </header>
+
+        <section class="card">
+            <h2>ВНЕШНИЙ ВИД</h2>
+            <label class="row"><span>Показывать фон</span><input type="checkbox" id="bgEnabled"></label>
+            <label class="row column">
+                <span>Тип фона</span>
+                <select id="bgType" class="select">
+                    <option value="bambi">Bambi (по умолчанию)</option>
+                    <option value="dark">Тёмный (без картинки)</option>
+                    <option value="gradient">Градиент (розово-голубой)</option>
+                    <option value="matrix">🟩 Матрица (хакер)</option>
+                </select>
+            </label>
+            <div class="row column">
+                <span>Предпросмотр</span>
+                <div class="preview" id="preview"><div class="overlay"></div><div class="preview-toggle">ВКЛ</div><div class="preview-label">BAMBI</div></div>
+            </div>
+            <label class="row"><span>Показывать секцию «Сайты»</span><input type="checkbox" id="showSites"></label>
+        </section>
+
+        <section class="card">
+            <h2>КАЧЕСТВО ПРОКСИ</h2>
+            <div class="ping-grid">
+                <label class="ping-option"><input type="radio" name="pingQuality" value="excellent"><div class="ping-card"><div class="ping-emoji">🏆</div><div class="ping-title">Отличный</div><div class="ping-value">до 300 мс</div></div></label>
+                <label class="ping-option"><input type="radio" name="pingQuality" value="good"><div class="ping-card"><div class="ping-emoji">⚡</div><div class="ping-title">Хороший</div><div class="ping-value">до 600 мс</div></div></label>
+                <label class="ping-option"><input type="radio" name="pingQuality" value="medium"><div class="ping-card"><div class="ping-emoji">👍</div><div class="ping-title">Средний</div><div class="ping-value">до 1200 мс</div></div></label>
+                <label class="ping-option"><input type="radio" name="pingQuality" value="bad"><div class="ping-card"><div class="ping-emoji">🐢</div><div class="ping-title">Плохой</div><div class="ping-value">до 3000 мс</div></div></label>
+                <label class="ping-option"><input type="radio" name="pingQuality" value="custom"><div class="ping-card"><div class="ping-emoji">🎯</div><div class="ping-title">Свой</div><div class="ping-value">вписать</div></div></label>
+            </div>
+            <label class="row column" id="customPingRow" style="display:none;"><span>Свой порог (мс)</span><input type="number" id="customPingMs" class="input"></label>
+        </section>
+
+        <section class="card">
+            <h2>ПОИСК И ПРОВЕРКА IP</h2>
+            <label class="row column"><span>Таймаут (мс)</span><input type="number" id="testTimeout" class="input"></label>
+            <label class="row column"><span>Сколько проверять</span><input type="number" id="maxCandidates" class="input"></label>
+            <label class="row column"><span>Свой прокси (с паролем)</span><input type="text" id="manualProxy" class="input" placeholder="socks5://user:pass@1.2.3.4:1080"></label>
+            <label class="row column"><span>Протокол</span>
+                <select id="protocolFilter" class="select"><option value="all">🌐 Все</option><option value="socks5">🔒 SOCKS5</option><option value="socks4">🔐 SOCKS4</option><option value="http">📡 HTTP</option></select>
+            </label>
+            <label class="row column">
+                <span>Источник проверки IP</span>
+                <select id="ipSource" class="select">
+                    <option value="ipify">🌐 ipify.org (быстрый)</option>
+                    <option value="myip">📍 myip.com (с geo)</option>
+                    <option value="ip-api">🔍 ip-api.com (детальный)</option>
+                </select>
+            </label>
+        </section>
+
+        <section class="card">
+            <h2>СТРАНЫ</h2>
+            <label class="row column"><span>Режим</span><select id="countryMode" class="select"><option value="all">🌍 Все</option><option value="allow">✅ Только из списка</option><option value="deny">❌ Кроме списка</option></select></label>
+            <label class="row column"><span>Коды стран</span><input type="text" id="countryList" class="input" placeholder="NL, DE, US"></label>
+        </section>
+
+        <section class="card">
+            <h2>РЕЖИМ САЙТОВ И ИМПОРТ</h2>
+            <label class="row column" style="margin-bottom: 16px;"><span>Белый или чёрный</span><select id="siteMode" class="select"><option value="whitelist">⚪ Белый (только для них)</option><option value="blacklist">⚫ Чёрный (для всего, кроме них)</option></select></label>
+            <label class="row column">
+                <span>Массовый импорт сайтов</span>
+                <textarea id="bulkSites" class="input" rows="4" placeholder="youtube.com&#10;google.com&#10;*.roblox.com" style="resize: vertical;"></textarea>
+                <button id="saveBulkSites" class="btn-secondary" style="margin-top: 8px; width: auto; align-self: flex-start;">📥 ЗАГРУЗИТЬ</button>
+            </label>
+        </section>
+
+        <section class="card">
+            <h2>БЕЗОПАСНОСТЬ И ЗВУК</h2>
+            <label class="row"><span>🛡️ Блокировать утечку IP (WebRTC)</span><input type="checkbox" id="webrtcProtect"></label>
+            <label class="row"><span>🔒 Защита от утечки DNS (DoH)</span><input type="checkbox" id="dohEnabled"></label>
+            <label class="row"><span>🚀 Автозапуск при старте браузера</span><input type="checkbox" id="autoStart"></label>
+            <label class="row"><span>🔊 Звук при подключении</span><input type="checkbox" id="soundEnabled"></label>
+        </section>
+
+        <section class="card">
+            <h2>АВТОМАТИЗАЦИЯ</h2>
+            <label class="row"><span>Автопроверка (Smart Fallback)</span><input type="checkbox" id="autoCheck"></label>
+            <label class="row column"><span>Интервал проверки (мин)</span><input type="number" id="autoCheckInterval" class="input"></label>
+            <label class="row"><span>Смена прокси по таймеру</span><input type="checkbox" id="autoRotate"></label>
+            <label class="row column"><span>Интервал смены (мин, 0=выкл)</span><input type="number" id="rotateInterval" class="input"></label>
+            <label class="row"><span>Автопоиск при старте</span><input type="checkbox" id="autoFind"></label>
+            <label class="row"><span>Автоприменение при старте</span><input type="checkbox" id="autoApply"></label>
+        </section>
+
+        <section class="card">
+            <h2>РЕЗЕРВНАЯ КОПИЯ</h2>
+            <div class="actions" style="margin-top: 0;">
+                <button id="exportBtn" class="btn-primary">💾 ЭКСПОРТ</button>
+                <label class="btn-secondary" style="text-align: center; cursor: pointer;">
+                    📂 ИМПОРТ <input type="file" id="importFile" accept=".json" style="display: none;">
+                </label>
+            </div>
+        </section>
+
+        <div class="actions">
+            <button id="saveBtn" class="btn-primary">СОХРАНИТЬ</button>
+            <button id="applyManualBtn" class="btn-primary">ПРИМЕНИТЬ РУЧНОЙ</button>
+            <button id="resetBtn" class="btn-secondary">СБРОСИТЬ</button>
+            <button id="eraseDataBtn" class="btn-danger">🗑 СТЕРЕТЬ ДАННЫЕ</button>
+        </div>
+
+        <div class="saved-toast" id="toast">СОХРАНЕНО!</div>
+    </div>
+
+    <div class="modal-overlay" id="eraseModal">
+        <div class="modal-content">
+            <h3>⚠️ ТОЧНО СТЕРЕТЬ?</h3>
+            <p>Вы уверены, что хотите <b>стереть все данные</b>? Кукуруза исчезнет навсегда.</p>
+            <div class="modal-actions">
+                <button id="confirmErase" class="btn-danger">ДА, СТЕРЕТЬ</button>
+                <button id="cancelErase" class="btn-secondary">ОТМЕНА</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

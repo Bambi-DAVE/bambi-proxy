@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Bambi Proxy",
+  "version": "3.5",
+  "description": "Умный обход блокировок с авто-поиском лучшего прокси.",
+  "permissions": [
+    "storage",
+    "proxy",
+    "privacy",
+    "notifications",
+    "alarms",
+    "contextMenus",
+    "webRequest",
+    "webRequestAuthProvider"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": { "128": "images/Bambi.png" }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "128": "images/Bambi.png"
+  },
+  "commands": {
+    "toggle-proxy": {
+      "suggested_key": { "default": "Ctrl+Shift+B", "mac": "Command+Shift+B" },
+      "description": "Быстрое вкл/выкл прокси"
+    }
+  }
+}
